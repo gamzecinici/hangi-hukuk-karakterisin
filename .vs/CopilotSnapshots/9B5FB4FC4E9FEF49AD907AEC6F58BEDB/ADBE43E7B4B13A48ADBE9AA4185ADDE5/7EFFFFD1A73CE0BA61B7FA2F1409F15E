@@ -1,0 +1,63 @@
+﻿(function () {
+  "use strict";
+
+  if (typeof CHARACTERS === "undefined") return;
+
+  var stored = null;
+  try {
+    stored = JSON.parse(localStorage.getItem("quizResult"));
+  } catch (e) {
+    stored = null;
+  }
+
+  var id = (stored && stored.primary) || DEFAULT_CHARACTER_ID;
+  var character = getCharacterById(id);
+
+  if (!character) {
+    character = getCharacterById(DEFAULT_CHARACTER_ID);
+    if (character) {
+      console.warn("Karakter bulunamadı: " + id + ". Varsayılan kullanılıyor.");
+    }
+  }
+
+  if (!character) return;
+
+  var nameEl = document.getElementById("result-name");
+  var sourceEl = document.getElementById("result-source");
+  var photoEl = document.getElementById("result-photo");
+  var quoteEl = document.getElementById("result-quote");
+  var traitsEl = document.getElementById("result-traits");
+  var descEl = document.getElementById("result-description");
+  var legalEl = document.getElementById("result-legal");
+
+  nameEl.textContent = character.name;
+  sourceEl.textContent = character.source.toUpperCase();
+  photoEl.src = character.image;
+  photoEl.alt = character.name + " karakter görseli";
+  quoteEl.textContent = "\u201C" + character.quote + "\u201D";
+  descEl.textContent = character.description;
+  legalEl.textContent = character.legal;
+
+  traitsEl.innerHTML = "";
+  character.traits.forEach(function (trait) {
+    var li = document.createElement("li");
+    li.className = "result-trait";
+    li.innerHTML =
+      '<span class="trait-icon" aria-hidden="true">' +
+      trait.icon +
+      "</span><span>" +
+      trait.label.toUpperCase() +
+      "</span>";
+    traitsEl.appendChild(li);
+  });
+
+  var retry = document.getElementById("result-retry");
+  if (retry) {
+    retry.addEventListener("click", function () {
+      localStorage.removeItem("quizIndex");
+      localStorage.removeItem("quizAnswers");
+      localStorage.removeItem("quizResult");
+      window.location.href = "quiz.html";
+    });
+  }
+})();

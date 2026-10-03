@@ -1,0 +1,147 @@
+﻿(function () {
+  "use strict";
+
+  if (typeof QUIZ_QUESTIONS === "undefined") return;
+
+  var total = QUIZ_TOTAL || QUIZ_QUESTIONS.length;
+  var currentIndex = 0;
+  var answers = [];
+
+  var counterEl = document.getElementById("quiz-counter");
+  var progressFill = document.getElementById("quiz-progress-fill");
+  var progressBar = document.getElementById("quiz-progressbar");
+  var questionEl = document.getElementById("quiz-question");
+  var answersEl = document.getElementById("quiz-answers");
+  var prevBtn = document.getElementById("quiz-prev");
+  var nextBtn = document.getElementById("quiz-next");
+
+  var letters = ["A", "B", "C", "D"];
+
+  function pad(n) {
+    return n < 10 ? "0" + n : String(n);
+  }
+
+  function getStoredIndex() {
+    var raw = sessionStorage.getItem("quizIndex");
+    var idx = raw ? parseInt(raw, 10) : 0;
+    if (isNaN(idx) || idx < 0) idx = 0;
+    if (idx >= total) idx = total - 1;
+    return idx;
+  }
+
+  function loadAnswers() {
+    try {
+      var raw = sessionStorage.getItem("quizAnswers");
+      answers = raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      answers = [];
+    }
+    if (!Array.isArray(answers)) answers = [];
+    while (answers.length < total) answers.push(null);
+  }
+
+  function saveState() {
+    sessionStorage.setItem("quizIndex", String(currentIndex));
+    sessionStorage.setItem("quizAnswers", JSON.stringify(answers));
+  }
+
+  function updateProgress() {
+    var num = currentIndex + 1;
+    counterEl.textContent = pad(num) + " / " + pad(total);
+    var pct = (num / total) * 100;
+    progressFill.style.width = pct + "%";
+    progressBar.setAttribute("aria-valuenow", String(num));
+    progressBar.setAttribute("aria-valuemax", String(total));
+  }
+
+  function renderQuestion() {
+    var q = QUIZ_QUESTIONS[currentIndex];
+    if (!q) return;
+
+    questionEl.textContent = q.text;
+    answersEl.innerHTML = "";
+
+    q.answers.forEach(function (text, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "answer-card";
+      btn.setAttribute("role", "option");
+      btn.setAttribute("data-index", String(i));
+      btn.setAttribute("aria-selected", "false");
+
+      if (answers[currentIndex] === i) {
+        btn.classList.add("is-selected");
+        btn.setAttribute("aria-selected", "true");
+      }
+
+      btn.innerHTML =
+        '<span class="answer-letter-wrap"><span class="answer-letter">' +
+        letters[i] +
+        "</span></span>" +
+        '<span class="answer-text">' +
+        text +
+        "</span>";
+
+      btn.addEventListener("click", function () {
+        selectAnswer(i);
+      });
+
+      answersEl.appendChild(btn);
+    });
+
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = answers[currentIndex] === null || answers[currentIndex] === undefined;
+    nextBtn.textContent = currentIndex === total - 1 ? "Bitir" : "İleri";
+
+    updateProgress();
+  }
+
+  function selectAnswer(index) {
+    answers[currentIndex] = index;
+    saveState();
+
+    answersEl.querySelectorAll(".answer-card").forEach(function (card, i) {
+      var selected = i === index;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-selected", selected ? "true" : "false");
+    });
+
+    nextBtn.disabled = false;
+  }
+
+  prevBtn.addEventListener("click", function () {
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      saveState();
+      renderQuestion();
+    }
+  });
+
+  nextBtn.addEventListener("click", function () {
+    if (answers[currentIndex] === null || answers[currentIndex] === undefined) return;
+
+    if (currentIndex < total - 1) {
+      currentIndex += 1;
+      saveState();
+      renderQuestion();
+      questionEl.focus();
+      return;
+    }
+
+    var characterId = DEFAULT_CHARACTER_ID;
+    if (typeof CHARACTERS !== "undefined" && CHARACTERS.length) {
+      var sum = answers.reduce(function (acc, v) {
+        return acc + (typeof v === "number" ? v : 0);
+      }, 0);
+      var pick = sum % CHARACTERS.length;
+      characterId = CHARACTERS[pick].id;
+    }
+
+    sessionStorage.setItem("quizResultCharacter", characterId);
+    window.location.href = "result.html?character=" + encodeURIComponent(characterId);
+  });
+
+  loadAnswers();
+  currentIndex = getStoredIndex();
+  renderQuestion();
+})();

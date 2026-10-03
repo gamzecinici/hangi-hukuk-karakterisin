@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hukuk karakteri testi sonucunuz.">
+  <title>Sonuç | Hangi Hukuk Karakterisin?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/result.css">
+</head>
+<body class="has-pattern page-result">
+  <div class="page-shell">
+    <header class="site-header">
+      <a href="index.html" class="brand">
+        <img src="assets/logo/logo.png" alt="Medipol Uluslararası Hukuk Kulübü logosu" class="brand-logo" width="48" height="48">
+        <span class="brand-text">
+          <span>MEDİPOL</span>
+          <span>ULUSLARARASI</span>
+          <span>HUKUK KULÜBÜ</span>
+        </span>
+      </a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menüyü aç">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <nav id="site-nav" class="site-nav" aria-label="Ana menü" hidden>
+      <a href="index.html">Ana Sayfa</a>
+      <a href="quiz.html">Teste Başla</a>
+      <a href="about.html">KARAKTERİNİ KEŞFET</a>
+    </nav>
+
+    <div class="page-inner">
+      <main class="result-main">
+        <header class="result-intro">
+          <div class="ornament-divider ornament-divider--tight" aria-hidden="true">
+            <span class="ornament-gem"></span>
+          </div>
+          <p class="result-label">Senin Hukuk Karakterin</p>
+          <h1 class="result-name serif-title" id="result-name">—</h1>
+          <p class="result-source" id="result-source">—</p>
+        </header>
+
+        <section class="result-hero" aria-label="Karakter özeti">
+          <div class="result-photo-wrap">
+            <img src="" alt="" class="result-photo" id="result-photo" width="320" height="427">
+          </div>
+          <div class="result-side">
+            <blockquote class="result-quote" id="result-quote"></blockquote>
+            <ul class="result-traits" id="result-traits" aria-label="Karakter özellikleri"></ul>
+          </div>
+        </section>
+
+        <article class="result-card">
+          <section class="result-section">
+            <div class="result-section-head">
+              <span class="result-section-icon" aria-hidden="true">&#9786;</span>
+              <h2 class="result-section-title">Karakter Açıklaması</h2>
+            </div>
+            <p id="result-description"></p>
+          </section>
+          <section class="result-section">
+            <div class="result-section-head">
+              <span class="result-section-icon" aria-hidden="true">&#9878;</span>
+              <h2 class="result-section-title">Hukuki Yönün</h2>
+            </div>
+            <p id="result-legal"></p>
+          </section>
+        </article>
+
+        <div class="result-actions">
+          <a href="quiz.html" class="btn btn-outline" id="result-retry">
+            <span class="btn-icon" aria-hidden="true">&#8635;</span> Testi Tekrarla
+          </a>
+        </div>
+
+        <!-- removed: result-discover section (discover other characters and arrow) -->
+      </main>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/result.js"></script>
+</body>
+</html>

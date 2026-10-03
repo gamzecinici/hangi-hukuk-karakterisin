@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Medipol Uluslararası Hukuk Kulübü ve Hangi Hukuk Karakterisin testi hakkında.">
+  <title>Hakkımızda | Hangi Hukuk Karakterisin?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body class="has-pattern page-about">
+  <div class="page-shell">
+    <header class="site-header">
+      <a href="index.html" class="brand">
+        <img src="assets/logo/logo.png" alt="Medipol Uluslararası Hukuk Kulübü logosu" class="brand-logo" width="48" height="48">
+        <span class="brand-text">
+          <span>MEDİPOL</span>
+          <span>ULUSLARARASI</span>
+          <span>HUKUK KULÜBÜ</span>
+        </span>
+      </a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menüyü aç">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <nav id="site-nav" class="site-nav" aria-label="Ana menü" hidden>
+      <a href="index.html">Ana Sayfa</a>
+      <a href="quiz.html">Teste Başla</a>
+      <a href="about.html" aria-current="page">Hakkımızda</a>
+    </nav>
+
+    <div class="ornament-divider ornament-divider--tight" aria-hidden="true">
+      <span class="ornament-gem"></span>
+    </div>
+
+    <div class="page-inner">
+      <main class="about-main">
+        <h1 class="about-title serif-title">Hakkımızda</h1>
+        <p class="about-lead">
+          Medipol Uluslararası Hukuk Kulübü olarak hukukun sinema ve dizi dünyasındaki yansımalarını
+          bir araya getiriyoruz.
+        </p>
+
+        <article class="about-card">
+          <h2>Proje</h2>
+          <p>
+            <strong>Hangi Hukuk Karakterisin?</strong>, 20 soruluk interaktif bir testtir. Yanıtların,
+            popüler hukuk temalı yapımlardan ilham alan 20 farklı karakter profiliyle eşleşmesini hedefler.
+          </p>
+          <p>
+            Amaç; hukuk öğrencilerinin kendilerini eğlenceli bir yolla tanımalarına yardımcı olmak ve
+            kulüp ruhunu güçlendirmektir.
+          </p>
+        </article>
+
+        <article class="about-card">
+          <h2>Nasıl Çalışır?</h2>
+          <ul class="about-list">
+            <li>Ana sayfadan teste başlayın.</li>
+            <li>20 soruyu yanıtlayın; her soruda tek seçenek işaretleyin.</li>
+            <li>Sonuç ekranında size en yakın hukuk karakterini keşfedin.</li>
+            <li>İsterseniz testi tekrarlayarak farklı senaryoları deneyin.</li>
+          </ul>
+        </article>
+
+        <div class="about-cta-wrap">
+          <a href="quiz.html" class="btn btn-primary about-cta">Teste Başla</a>
+        </div>
+      </main>
+    </div>
+
+    <div class="ornament-divider" aria-hidden="true" style="margin-top: auto; padding-bottom: 1.25rem;">
+      <span class="ornament-gem"></span>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+﻿/* eslint-disable no-unused-vars */
+const questions = [
+  {
+    id: 1,
+    text: "Bir davada karşındaki avukat seni küçümseyen bir tavırla konuşuyor. Ne yaparsın?",
+    options: [
+      {
+        id: "A",
+        text: "Gülümserim; beni hafife alması işime bile gelebilir.",
+        scores: { "harvey-specter": 2, "jessica-pearson": 2, "connor-walsh": 1 }
+      },
+      {
+        id: "B",
+        text: "Söylediklerini dikkatle dinleyip açık vermesini beklerim.",
+        scores: { "mike-ross": 2, "kim-wexler": 2, "wes-gibbins": 1 }
+      },
+      {
+        id: "C",
+        text: "Kendimi ezdirmem, gerektiğinde karşılığını veririm.",
+        scores: { "louis-litt": 2, "harvey-specter": 1, "connor-walsh": 1 }
+      },
+      {
+        id: "D",
+        text: "Hiç kişiselleştirmem, işime odaklanırım.",
+        scores: { "kim-wexler": 2, "maggie-mcpherson": 2, "judge-elizabeth-donnelly": 1 }
+      }
+    ]
+  },
+  {
+    id: 2,
+    text: "Bir arkadaş grubunda herkes farklı bir plan yapmak istiyor. Sen ne yaparsın?",
+    options: [
+      { id: "A", text: "Sonunda bir karar çıkması için liderliği üstlenirim.", scores: { "jessica-pearson": 2, "louis-litt": 1, "harvey-specter": 1 } },
+      { id: "B", text: "Herkesin ne istediğini dinleyip ortak bir çözüm bulurum.", scores: { "rachel-zane": 2, "laurel-castillo": 2, "wes-gibbins": 1 } },
+      { id: "C", text: "Benim istediğim olsun diye insanları ikna etmeye çalışırım.", scores: { "harvey-specter": 2, "elle-woods": 1, "connor-walsh": 1 } },
+      { id: "D", text: "Çok önemsemem, çoğunluğa uyarım.", scores: { "rachel-zane": 2, "wes-gibbins": 1, "judge-elizabeth-donnelly": 1 } }
+    ]
+  },
+  {
+    id: 3,
+    text: "Çok önemli bir duruşmadan önce hangisini yaparsın?",
+    options: [
+      { id: "A", text: "Kendime güvenimi yükseltirim; nasıl göründüğüm ve konuştuğum da önemli.", scores: { "harvey-specter": 2, "elle-woods": 1, "connor-walsh": 1 } },
+      { id: "B", text: "Her şeyi tekrar tekrar kontrol ederim.", scores: { "louis-litt": 2, "kim-wexler": 2, "mike-ross": 1 } },
+      { id: "C", text: "Karşı tarafın ne yapabileceğini tahmin etmeye çalışırım.", scores: { "jessica-pearson": 2, "annalise-keating": 1, "jimmy-mcgill": 1 } },
+      { id: "D", text: "Fazla düşünmem, o an geldiğinde içgüdülerime güvenirim.", scores: { "mickey-haller": 2, "mike-ross": 1, "wes-gibbins": 1 } }
+    ]
+  },
+  {
+    id: 4,
+    text: "Sana çok yakın biri seni hayal kırıklığına uğrattı.",
+    options: [
+      { id: "A", text: "Hemen konuşup ne olduğunu anlamaya çalışırım.", scores: { "annalise-keating": 2, "maggie-mcpherson": 1, "rachel-zane": 1 } },
+      { id: "B", text: "İçime atarım ama kolay kolay unutmam.", scores: { "kim-wexler": 2, "wes-gibbins": 2, "judge-elizabeth-donnelly": 1 } },
+      { id: "C", text: "Biraz uzaklaşırım; sonra konuşup konuşmayacağıma karar veririm.", scores: { "laurel-castillo": 2, "rachel-zane": 1, "elle-woods": 1 } },
+      { id: "D", text: "Kırılmış olsam bile onu kaybetmek istemem.", scores: { "rachel-zane": 2, "laurel-castillo": 1, "jessica-pearson": 1 } }
+    ]
+  },
+  {
+    id: 5,
+    text: "Bir dosyada herkesin gözden kaçırdığı küçük bir ayrıntıyı fark ettin.",
+    options: [
+      { id: "A", text: "Hemen bunun peşine düşerim.", scores: { "mike-ross": 2, "kim-wexler": 2, "wes-gibbins": 1 } },
+      { id: "B", text: "Önce gerçekten önemli olup olmadığını araştırırım.", scores: { "jessica-pearson": 2, "judge-elizabeth-donnelly": 2, "maggie-mcpherson": 1 } },
+      { id: "C", text: "İçgüdülerim önemli diyorsa sonuna kadar giderim.", scores: { "annalise-keating": 2, "mickey-haller": 1, "jimmy-mcgill": 1 } },
+      { id: "D", text: "Bunu nasıl avantaja çevirebileceğimi düşünürüm.", scores: { "jimmy-mcgill": 2, "harvey-specter": 1, "connor-walsh": 1 } }
+    ]
+  },
+  {
+    id: 6,
+    text: "Yeni bir ortama girdiğinde genellikle…",
+    options: [
+      { id: "A", text: "İnsanlarla hemen iletişim kurarım.", scores: { "elle-woods": 2, "rachel-zane": 2, "connor-walsh": 1 } },
+      { id: "B", text: "Önce ortamı ve insanları gözlemlerim.", scores: { "kim-wexler": 2, "wes-gibbins": 2, "judge-elizabeth-donnelly": 1 } },
+      { id: "C", text: "Kendimi belli ederim; çekingen davranmayı sevmem.", scores: { "harvey-specter": 2, "jessica-pearson": 1, "louis-litt": 1 } },
+      { id: "D", text: "Birkaç kişiyle yakınlaşır, geri kalanını zamanla tanırım.", scores: { "laurel-castillo": 2, "maggie-mcpherson": 1, "mike-ross": 1 } }
+    ]
+  },
+  {
+    id: 7,
+    text: "Bir konuda başarısız oldun. İlk düşüncen ne olur?",
+    options: [
+      { id: "A", text: "“Tamam, nerede hata yaptığımı bulalım.”", scores: { "louis-litt": 2, "harvey-specter": 1, "connor-walsh": 1 } },
+      { id: "B", text: "“Bir daha asla aynı hatayı yapmayacağım.”", scores: { "mike-ross": 2, "kim-wexler": 1, "jessica-pearson": 1 } },
+      { id: "C", text: "“Bunu telafi etmenin bir yolunu bulurum.”", scores: { "laurel-castillo": 2, "rachel-zane": 1, "elle-woods": 1 } },
+      { id: "D", text: "Bir süre üzülürüm ama sonra devam ederim.", scores: { "maggie-mcpherson": 2, "judge-elizabeth-donnelly": 1, "serena-southerlyn": 1 } }
+    ]
+  },
+  {
+    id: 8,
+    text: "Müvekkilin senden istediğin bir şeyi yapmak istemiyor.",
+    options: [
+      { id: "A", text: "Onu ikna etmeye çalışırım.", scores: { "jessica-pearson": 2, "harvey-specter": 1, "mickey-haller": 1 } },
+      { id: "B", text: "Neden istemediğini anlamaya çalışırım.", scores: { "laurel-castillo": 2, "rachel-zane": 1, "mike-ross": 1 } },
+      { id: "C", text: "Seçenekleri anlatıp kararını ona bırakırım.", scores: { "judge-elizabeth-donnelly": 2, "maggie-mcpherson": 2, "kim-wexler": 1 } },
+      { id: "D", text: "En doğru olduğuna inandığım şeyi savunmaya devam ederim.", scores: { "annalise-keating": 2, "serena-southerlyn": 1, "wes-gibbins": 1 } }
+    ]
+  },
+  {
+    id: 9,
+    text: "Birinin sana yalan söylediğini düşünüyorsun.",
+    options: [
+      { id: "A", text: "Direkt sorarım.", scores: { "harvey-specter": 2, "connor-walsh": 1, "jimmy-mcgill": 1 } },
+      { id: "B", text: "Belli etmeden kanıt toplamaya başlarım.", scores: { "mike-ross": 2, "kim-wexler": 2, "wes-gibbins": 1 } },
+      { id: "C", text: "Bir süre gözlemleyip kendi kendine açık vermesini beklerim.", scores: { "jessica-pearson": 2, "judge-elizabeth-donnelly": 1, "maggie-mcpherson": 1 } },
+      { id: "D", text: "Yalan söylüyorsa zaten er ya da geç ortaya çıkacağını düşünürüm.", scores: { "jimmy-mcgill": 2, "annalise-keating": 1, "mickey-haller": 1 } }
+    ]
+  },
+  {
+    id: 10,
+    text: "İnsanlarda seni en çok etkileyen özellik hangisi?",
+    options: [
+      { id: "A", text: "Zekâ", scores: { "mike-ross": 2, "wes-gibbins": 1, "kim-wexler": 1 } },
+      { id: "B", text: "Sadakat", scores: { "rachel-zane": 2, "laurel-castillo": 2, "serena-southerlyn": 1 } },
+      { id: "C", text: "Özgüven", scores: { "harvey-specter": 2, "jessica-pearson": 1, "connor-walsh": 1 } },
+      { id: "D", text: "Vicdan", scores: { "annalise-keating": 2, "judge-elizabeth-donnelly": 1, "maggie-mcpherson": 1 } }
+    ]
+  },
+  {
+    id: 11,
+    text: "Bir arkadaşın senden büyük bir sırrını saklamanı istedi.",
+    options: [
+      { id: "A", text: "Bana güvenmişse sırrını korurum.", scores: { "rachel-zane": 2, "kim-wexler": 2, "laurel-castillo": 1 } },
+      { id: "B", text: "Sırrın başkasına zarar verme ihtimali varsa durum değişir.", scores: { "judge-elizabeth-donnelly": 2, "maggie-mcpherson": 2, "serena-southerlyn": 1 } },
+      { id: "C", text: "Bazen sır saklamak insanı gereksiz yere zor durumda bırakabilir.", scores: { "jessica-pearson": 2, "harvey-specter": 1, "mickey-haller": 1 } },
+      { id: "D", text: "Ne olursa olsun arkadaşımın yanında olurum.", scores: { "annalise-keating": 2, "jimmy-mcgill": 1, "connor-walsh": 1 } }
+    ]
+  },
+  {
+    id: 12,
+    text: "Bir davada işler tamamen planının dışına çıktı.",
+    options: [
+      { id: "A", text: "Anında yeni bir strateji geliştiririm.", scores: { "mike-ross": 2, "jimmy-mcgill": 2, "connor-walsh": 1 } },
+      { id: "B", text: "Sakin kalıp durumu analiz ederim.", scores: { "judge-elizabeth-donnelly": 2, "kim-wexler": 2, "wes-gibbins": 1 } },
+      { id: "C", text: "Karşı tarafın hatasını fırsata çevirmeye çalışırım.", scores: { "harvey-specter": 2, "jessica-pearson": 1, "mickey-haller": 1 } },
+      { id: "D", text: "Planım bozulsa bile kendime güvenimi kaybetmem.", scores: { "harvey-specter": 2, "elle-woods": 1, "rachel-zane": 1 } }
+    ]
+  },
+  {
+    id: 13,
+    text: "Birisi seni eleştirdiğinde…",
+    options: [
+      { id: "A", text: "Haklıysa kabul ederim, değilse kendimi savunurum.", scores: { "maggie-mcpherson": 2, "kim-wexler": 2, "rachel-zane": 1 } },
+      { id: "B", text: "Günlerce düşünüp acaba haklı mı diye sorgularım.", scores: { "wes-gibbins": 2, "mike-ross": 1, "annalise-keating": 1 } },
+      { id: "C", text: "Çok önemsemem; herkesin fikri benim için önemli değil.", scores: { "harvey-specter": 2, "jessica-pearson": 1, "louis-litt": 1 } },
+      { id: "D", text: "İlk anda sinirlensem de sonradan düşünürüm.", scores: { "annalise-keating": 2, "laurel-castillo": 1, "connor-walsh": 1 } }
+    ]
+  },
+  {
+    id: 14,
+    text: "Hayatında bir şeyi seçmek zorunda olsan hangisini seçerdin?",
+    options: [
+      { id: "A", text: "Çok başarılı olmak.", scores: { "jessica-pearson": 2, "louis-litt": 2, "harvey-specter": 1 } },
+      { id: "B", text: "Sevdiğim insanlarla huzurlu bir hayat.", scores: { "mike-ross": 2, "kim-wexler": 2, "wes-gibbins": 1 } },
+      { id: "C", text: "Özgür olmak ve kendi kararlarımı vermek.", scores: { "elle-woods": 2, "rachel-zane": 2, "laurel-castillo": 1 } },
+      { id: "D", text: "Güçlü ve saygı duyulan biri olmak.", scores: { "jessica-pearson": 2, "annalise-keating": 1, "judge-elizabeth-donnelly": 1 } }
+    ]
+  },
+  {
+    id: 15,
+    text: "Bir planın son anda bozuldu. Ne yaparsın?",
+    options: [
+      { id: "A", text: "Hiç panik yapmam, hemen yeni bir plan kurarım.", scores: { "mickey-haller": 2, "harvey-specter": 1, "mike-ross": 1 } },
+      { id: "B", text: "“Nerede yanlış yaptık?” diye düşünüp durumu analiz ederim.", scores: { "mike-ross": 2, "kim-wexler": 1, "wes-gibbins": 1 } },
+      { id: "C", text: "Doğaçlama hareket eder, ortaya çıkan durumdan bile avantaj çıkarmaya çalışırım.", scores: { "jimmy-mcgill": 2, "mickey-haller": 1, "elle-woods": 1 } },
+      { id: "D", text: "Biraz sinirlensem de kontrolü yeniden ele alırım.", scores: { "jessica-pearson": 2, "louis-litt": 1, "harvey-specter": 1 } }
+    ]
+  },
+  {
+    id: 16,
+    text: "Bir hukuk yarışmasında takım liderisin.",
+    options: [
+      { id: "A", text: "Herkese net görevler veririm ve kontrolü elimde tutarım.", scores: { "jessica-pearson": 2, "louis-litt": 1, "judge-elizabeth-donnelly": 1 } },
+      { id: "B", text: "Herkesin güçlü olduğu alanı bulup ona göre görev dağıtırım.", scores: { "kim-wexler": 2, "mike-ross": 1, "maggie-mcpherson": 1 } },
+      { id: "C", text: "Takımın moralini yüksek tutmaya çalışırım.", scores: { "elle-woods": 2, "rachel-zane": 2, "laurel-castillo": 1 } },
+      { id: "D", text: "Gerektiğinde bütün sorumluluğu üzerime alırım.", scores: { "harvey-specter": 2, "annalise-keating": 1, "jack-mccoy": 1 } }
+    ]
+  },
+  {
+    id: 17,
+    text: "İnsanlar seni genellikle nasıl tanımlar?",
+    options: [
+      { id: "A", text: "Güçlü ve özgüvenli.", scores: { "kim-wexler": 2, "rachel-zane": 1, "maggie-mcpherson": 1 } },
+      { id: "B", text: "Zeki ve biraz gizemli.", scores: { "mike-ross": 2, "wes-gibbins": 2, "annalise-keating": 1 } },
+      { id: "C", text: "Duygusal ama çok sadık.", scores: { "harvey-specter": 2, "jessica-pearson": 1, "louis-litt": 1 } },
+      { id: "D", text: "Hırslı ve kararlı.", scores: { "annalise-keating": 2, "judge-elizabeth-donnelly": 1, "serena-southerlyn": 1 } }
+    ]
+  },
+  {
+    id: 18,
+    text: "Bir karar verirken hangisine daha çok güvenirsin?",
+    options: [
+      { id: "A", text: "Mantığıma.", scores: { "mike-ross": 2, "kim-wexler": 1, "judge-elizabeth-donnelly": 1 } },
+      { id: "B", text: "İçgüdülerime.", scores: { "jimmy-mcgill": 2, "harvey-specter": 1, "connor-walsh": 1 } },
+      { id: "C", text: "İnsanların nasıl etkileneceğine.", scores: { "jessica-pearson": 2, "mickey-haller": 2, "annalise-keating": 1 } },
+      { id: "D", text: "Bana sağlayacağı avantaja.", scores: { "serena-southerlyn": 2, "maggie-mcpherson": 2, "laurel-castillo": 1 } }
+    ]
+  },
+  {
+    id: 19,
+    text: "Sana göre hayatta hangisi daha önemli?",
+    options: [
+      { id: "A", text: "Başarmak", scores: { "harvey-specter": 2, "jessica-pearson": 1, "louis-litt": 1 } },
+      { id: "B", text: "Adil olmak", scores: { "judge-elizabeth-donnelly": 2, "maggie-mcpherson": 2, "wes-gibbins": 1 } },
+      { id: "C", text: "Sevdiklerini korumak", scores: { "laurel-castillo": 2, "rachel-zane": 1, "elle-woods": 1 } },
+      { id: "D", text: "Kendi ayaklarının üzerinde durmak", scores: { "jessica-pearson": 2, "kim-wexler": 1, "mickey-haller": 1 } }
+    ]
+  },
+  {
+    id: 20,
+    text: "İnsanlar seni gerçekten tanıdığında neyi fark etsin isterdin?",
+    options: [
+      { id: "A", text: "Göründüğümden çok daha duygusal olduğumu.", scores: { "laurel-castillo": 2, "rachel-zane": 1, "annalise-keating": 1 } },
+      { id: "B", text: "Her şeyi düşündüğümden çok daha fazla analiz ettiğimi.", scores: { "mike-ross": 2, "wes-gibbins": 1, "kim-wexler": 1 } },
+      { id: "C", text: "Dışarıdan ne kadar özgüvenli görünsem de aslında çok hassas olduğumu.", scores: { "elle-woods": 2, "harvey-specter": 1, "jessica-pearson": 1 } },
+      { id: "D", text: "Hedeflerimden vazgeçmememin sandıklarından daha güçlü bir sebebi olduğunu.", scores: { "jessica-pearson": 2, "annalise-keating": 1, "kim-wexler": 1 } }
+    ]
+  }
+];
+
+var CHARACTERS = [
+  // PARTIAL_REPLACEMENT_START - continuing character updates in next patch
+  {
+    id: "jessica-pearson",
+    name: "Jessica Pearson",
+    production: "Suits",
+    image: "assets/characters/jessica-pearson.jpeg",
+    description:
+      "Kriz anlarında paniğe kapılmak yerine kontrolü eline almayı tercih edersin. Bir adım sonrasını düşünür, insanların nasıl davranabileceğini önceden hesaplamaya çalışırsın. Liderlik senin için yalnızca öne çıkmak değil, zor anlarda sorumluluk almaktır. Güçlü duruşunun arkasında olayları hızlı analiz eden ve gerektiğinde zor kararlar verebilen bir tarafın vardır.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki meselelerde olayın yalnızca bugünkü durumuna değil, sonraki hamlelere de odaklanırsın. Dava stratejisi, müzakere ve kriz anlarında karar verme gibi süreçlerde stratejik düşünme biçimin öne çıkar. Karşı tarafın olası hamlelerini önceden değerlendirmeye ve elindeki seçenekleri buna göre şekillendirmeye yatkınsın. Bir dosyada kontrolün kaybolduğu anlarda yeni bir yol oluşturmak senin güçlü taraflarından biridir.",
+    traits: ["STRATEJİK", "LİDER", "ÖZGÜVENLİ", "KRİZ YÖNETİMİ"]
+  },
+  {
+    id: "rachel-zane",
+    name: "Rachel Zane",
+    production: "Suits",
+    image: "assets/characters/rachel-zane.jpeg",
+    description:
+      "Başarı senin için önemli olsa da hedeflerine ulaşırken insanları göz ardı etmek istemezsin. Çalışkanlığını empati ve güçlü bir adalet duygusuyla birleştirirsin. Hazırlıklı olduğunda kendine olan güvenin de belirgin şekilde ortaya çıkar. Bir problemi çözerken hem sonuca hem de bu sonucun insanlar üzerindeki etkisine bakarsın.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki bir problemi değerlendirirken yalnızca kanun ve dosyaya değil, olayın arkasındaki insana da odaklanırsın. Müvekkil ilişkileri, hukuki araştırma, dosya hazırlığı ve insan odaklı hukuki süreçlerde empatik yaklaşımın öne çıkabilir. Detaylı çalışırken karşı tarafın veya müvekkilin bakış açısını anlamaya da önem verirsin. Senin için hukuk, yalnızca doğru sonucu bulmak değil, o sonuca adil bir şekilde ulaşmaktır.",
+    traits: ["EMPATİK", "ÇALIŞKAN", "ADALET ODAKLI", "DİSİPLİNLİ"]
+  },
+  {
+    id: "elle-woods",
+    name: "Elle Woods",
+    production: "Legally blonde",
+    image: "assets/characters/elle-woods.jpeg",
+    description:
+      "İnsanların seni ilk bakışta hafife almasına izin versen bile, bunun seni tanımlamasına izin vermezsin. Pozitif enerjin, sosyal yönün ve kendine olan inancın en büyük güçlerinden biridir. Bir hedef belirlediğinde önyargılar seni durdurmak yerine daha fazla motive edebilir. Kendi tarzını koruyarak başarılı olmayı tercih edersin.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki ortamlarda iletişim gücün ve özgüvenin dikkat çekebilir. İnsanların seni nasıl algıladığına takılıp kalmak yerine, hazırlığın ve performansınla kendini göstermeyi tercih edersin. Sözlü anlatım, müzakere ve insanlarla doğrudan iletişim gerektiren hukuki süreçlerde sosyal yönünü kullanabilirsin. Özellikle ön yargılı yaklaşımlarla karşılaştığında bunu motivasyona dönüştürme eğilimin vardır.",
+    traits: ["POZİTİF", "SOSYAL", "ÖZGÜVENLİ", "KARARLI"]
+  },
+  {
+    id: "annalise-keating",
+    name: "Annalise Keating",
+    production: "How to get away with murder",
+    image: "assets/characters/annalise-keating.jpeg",
+    description:
+      "Bir olayın görünen kısmıyla yetinmez, arkasında ne olduğunu anlamaya çalışırsın. İnsanların davranışlarını okumak ve kriz anlarında strateji oluşturmak güçlü yönlerinden biridir. Dışarıdan sakin ve kontrollü görünsen de olayları oldukça yoğun yaşayabilirsin. Karmaşık durumlarda bağlantıları fark ederek kendine bir çıkış yolu oluşturursun.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nKarmaşık uyuşmazlıklarda olayın hukuki boyutunun yanında tarafların motivasyonlarını ve olası hamlelerini de değerlendirmeye yatkınsın. Dava stratejisi, kriz yönetimi, sözlü savunma ve müzakere süreçlerinde stratejik yaklaşımın öne çıkabilir. Bir dosyanın gidişatı değiştiğinde mevcut planını yeniden şekillendirmekten çekinmezsin. Baskı altında hızlı düşünmek ve alternatif oluşturmak senin hukuki yaklaşımının önemli parçalarındandır.",
+    traits: ["STRATEJİK", "SEZGİSEL", "KRİZ YÖNETİMİ", "GÜÇLÜ DURUŞ"]
+  },
+  {
+    id: "laurel-castillo",
+    name: "Laurel Castillo",
+    production: "How to get away with murder",
+    image: "assets/characters/laurel-castillo.jpeg",
+    description:
+      "Senin için bir olayın arkasındaki insanı görmek en az sonucun kendisi kadar önemlidir. Empatin sayesinde çevrendeki insanların ne hissettiğini anlamaya çalışırsın. Güvendiğin insanlara karşı oldukça sadıksın ve değer verdiğin kişileri kolay kolay yarı yolda bırakmazsın. Ancak sevdiklerin söz konusu olduğunda duyguların bazen kararlarını etkileyebilir.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki olayların insan hayatındaki etkilerini göz önünde bulundurursun. Müvekkilin yaşadığı süreci anlamak, farklı bakış açılarını değerlendirmek ve hukuki kararların insani sonuçlarını düşünmek senin için önemlidir. Adalet duygun güçlü olduğu için etik boyutu olan hukuki meselelerde olayın vicdani tarafını da sorgulayabilirsin. Ancak duygusal yakınlık ile objektif hukuki değerlendirme arasındaki dengeyi koruman önemlidir.",
+    traits: ["EMPATİK", "SADIK", "İLKELİ", "VİCDANLI"]
+  },
+  {
+    id: "kim-wexler",
+    name: "Kim Wexler",
+    production: "Better call saul",
+    image: "assets/characters/kim-wexler.jpeg",
+    description:
+      "Sakin görünümünün altında oldukça disiplinli ve kararlı bir karakter vardır. Bir işi üstlendiğinde tamamlamak için gereken emeği vermekten kaçınmazsın. Gösterişli olmaktan çok yaptığın işin kalitesinin seni anlatmasını tercih edersin. Baskı altında sorumluluk almaktan çekinmez ve doğru olduğuna inandığın şeyin arkasında durursun.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nDosya hazırlığı, hukuki araştırma ve disiplin gerektiren süreçlerde sistemli çalışma biçimin öne çıkabilir. Bir işi yalnızca tamamlamak değil, düzgün ve güvenilir şekilde yapmak istersin. Hukuki bir karar verirken etik ve sorumluluk boyutunu göz ardı etmemeye çalışırsın. Sessiz ama istikrarlı ilerlemen, uzun ve yoğun hukuki süreçlerde önemli bir avantaj olabilir.",
+    traits: ["DİSİPLİNLİ", "SADIK", "KARARLI", "ETİK"]
+  },
+  {
+    id: "maggie-mcpherson",
+    name: "Maggie McPherson",
+    production: "The lincoln lawyer",
+    image: "assets/characters/maggie-mcpherson.jpeg",
+    description:
+      "Senin için başarıdan önce doğru olanı yapmak gelir. Bir karar verirken kuralları, sorumlulukları ve olayın insanlar üzerindeki etkisini birlikte değerlendirmeye çalışırsın. Güvenilir biri olarak görülmek senin için önemlidir. İnandığın bir konu söz konusu olduğunda kolayca geri adım atmazsın.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki meselelerde kuralların ve adalet duygusunun önemli bir yere sahip olduğunu düşünürsün. Hukukun uygulanmasında tutarlılık ve sorumluluk senin için önemlidir. Bir dosyada karar verirken yalnızca kısa vadeli sonucu değil, kararın hukuki ve insani etkilerini de değerlendirmeye çalışırsın. Özellikle etik ikilemlerle karşılaştığında kendi ilkelerini korumaya yatkınsın.",
+    traits: ["ADALET ODAKLI", "SORUMLU", "İLKELİ", "KARARLI"]
+  },
+  {
+    id: "judge-elizabeth-donnelly",
+    name: "Judge Elizabeth Donnelly",
+    production: "Law&order",
+    image: "assets/characters/judge-elizabeth-donnelly.jpeg",
+    description:
+      "Bir karar vermeden önce olayın bütün taraflarını dinlemeyi tercih edersin. İnsanların söylediklerinden çok, söylediklerinin arkasındaki gerçekleri anlamaya çalışırsın. Duygusal baskı altında kalmadan objektif düşünmek güçlü taraflarından biridir. Herkesin fikrine kulak versen de sonunda kendi değerlendirmene göre hareket edersin.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki meselelerde tarafları dinlemek, delilleri değerlendirmek ve farklı görüşleri birbirinden ayırmak senin yaklaşımının merkezindedir. Özellikle karar verme süreçlerinde kişisel duygulardan mümkün olduğunca uzak durmaya çalışırsın. Bir hukuki uyuşmazlığı değerlendirirken tek bir tarafın anlatımıyla yetinmek yerine bütün tabloyu görmeye önem verirsin. Objektiflik ve ölçülülük senin hukuki bakışının temel özelliklerindendir.",
+    traits: ["OBJEKTİF", "SAKİN", "KONTROLLÜ", "DENGELİ"]
+  },
+  {
+    id: "serena-southerlyn",
+    name: "Serena Southerlyn",
+    production: "Law&order",
+    image: "assets/characters/serena-southerlyn.jpeg",
+    description:
+      "Senin için adalet yalnızca kuralların uygulanmasından ibaret değildir. Verilen bir kararın gerçek insanların hayatında ne değiştireceğini düşünürsün. Empatin sayesinde başkalarının bakış açısını anlamaya çalışırsın. İnsanların gözden kaçırdığı insani ayrıntılar senin için oldukça önemli olabilir.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki kararların insanlar üzerindeki etkisini değerlendirmeye yatkınsın. Bir olayın yalnızca teknik veya hukuki yönünü değil, tarafların yaşadığı gerçek hayat koşullarını da dikkate alırsın. İnsan hakları, adalet, etik ve mağdur odaklı meselelerde insani bakış açın belirginleşebilir. Bununla birlikte duygusal yaklaşımın ile objektif hukuki değerlendirme arasında denge kurman önemlidir.",
+    traits: ["EMPATİK", "VİCDANLI", "İNSAN ODAKLI", "ADALETÇİ"]
+  },
+  {
+    id: "alexandra-cabot",
+    name: "Alexandra Cabot",
+    production: "Law&order",
+    image: "assets/characters/alexandra-cabot.jpeg",
+    description:
+      "Kendi kararlarını verebilen, sorumluluk almaktan çekinmeyen ve baskı altında duruşunu koruyabilen birisin. Başkalarının onayına ihtiyaç duymadan hareket edebilirsin. Ciddi ve özgüvenli tavrının arkasında bağımsız bir karakter vardır. Zor kararlar karşısında geri adım atmak yerine seçenekleri değerlendirip harekete geçmeyi tercih edersin.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki süreçlerde güçlü bir duruş sergilemek ve sorumluluk almak senin öne çıkan özelliklerin olabilir. Dosyaları değerlendirirken bağımsız düşünmeye ve kararlarının arkasında durmaya önem verirsin. Baskı altında bile hukuki pozisyonunu korumaya çalışırsın. Özellikle ciddi ve yüksek sorumluluk gerektiren süreçlerde kontrollü ve kararlı yaklaşımın belirginleşebilir.",
+    traits: ["ÖZGÜVENLİ", "BAĞIMSIZ", "CİDDİ", "KARARLI"]
+  },
+  {
+    id: "harvey-specter",
+    name: "Harvey Specter",
+    production: "Suıts",
+    image: "assets/characters/harvey-specter.jpeg",
+    description:
+      "Girdiğin ortamda fark edilmekten çekinmezsin. Kendine olan güvenin özellikle baskı altında karar vermen gerektiğinde sana avantaj sağlar. Rekabet seni geriye çekmek yerine daha fazla motive eder. İnsanların davranışlarını hızlı okuyabilir ve gerektiğinde stratejini değiştirebilirsin.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki tartışmalarda kendini net ifade etmek, karşı tarafı ikna etmek ve güçlü argümanlar oluşturmak senin öne çıkabileceğin yönlerdir. Müzakere, sözlü savunma ve rekabetin yüksek olduğu hukuki süreçlerde özgüvenini kullanabilirsin. Karşı tarafın argümanlarını analiz ederek zayıf noktaları yakalamaya çalışırsın. Ancak güçlü bir hukuki pozisyonun yalnızca özgüvenden değil, sağlam hazırlık ve hukuki temelden geçtiğini unutmamak gerekir.",
+    traits: ["ÖZGÜVENLİ", "İKNA EDİCİ", "REKABETÇİ", "STRATEJİK"]
+  },
+  {
+    id: "mike-ross",
+    name: "Mike Ross",
+    production: "Suıts",
+    image: "assets/characters/mike-ross.jpeg",
+    description:
+      "Başkalarının ayrı ayrı gördüğü detaylar arasında bağlantılar kurmak senin doğal yeteneklerinden biridir. Standart yolların dışına çıkmaktan çekinmez, farklı ihtimalleri düşünürsın. Hızlı öğrenir ve bilgileri beklenmedik şekillerde bir araya getirebilirsin. Zihnindeki seçenekler bazen karar vermeni zorlaştırsa da doğru bağlantıyı bulduğunda oldukça yaratıcı çözümler üretebilirsin.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nBir dosyadaki küçük bir ayrıntının bütün hukuki tabloyu değiştirebileceğini fark etmeye yatkınsın. Hukuki araştırma, mevzuat inceleme, içtihatlar arasında bağlantı kurma ve karmaşık bilgileri analiz etme konusunda detaycı yaklaşımın öne çıkar. Standart bir çözüm bulunmadığında alternatif hukuki argümanlar geliştirmeye çalışırsın. Bilgi toplamak kadar farklı bilgiler arasındaki bağlantıyı görmek de senin güçlü yönlerinden biridir.",
+    traits: ["DETAYCI", "HIZLI DÜŞÜNEN", "YARATICI", "ANALİTİK"]
+  },
+  {
+    id: "louis-litt",
+    name: "Louis Litt",
+    production: "Suıts",
+    image: "assets/characters/louis-litt.jpeg",
+    description:
+      "Bir hedef belirlediğinde ona ulaşmak için gereken emeği vermekten kaçınmazsın. Ayrıntılara önem verir ve yaptığın işin mümkün olduğunca kusursuz olmasını istersin. Rekabetçi yapın seni daha fazla çalışmaya ve kendini geliştirmeye itebilir. Değer verdiğin insanlara karşı oldukça sadık olsan da bunu her zaman dışarıdan göstermem kolay olmayabilir.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nDosya detaylarını takip etmek, hazırlık yapmak ve hukuki süreçleri kontrol altında tutmak senin güçlü tarafların olabilir. Bir konuyu yüzeysel bırakmak yerine ayrıntıları incelemeyi tercih edersin. Yoğun çalışma gerektiren hukuki süreçlerde yüksek çalışma disiplinin öne çıkabilir. Ancak mükemmeliyetçilik ve rekabet duygusunun işbirliğinin önüne geçmemesine dikkat etmen gerekir.",
+    traits: ["HIRSLI", "DETAYCI", "ÇALIŞKAN", "SADIK"]
+  },
+  {
+    id: "mickey-haller",
+    name: "Mickey Haller",
+    production: "The lincoln lawyer",
+    image: "assets/characters/mickey-haller.jpeg",
+    description:
+      "İnsanları anlamak ve onların nasıl düşündüğünü çözmek en güçlü taraflarından biridir. Bir probleme yalnızca teorik açıdan değil, gerçek hayatta nasıl çözülebileceği açısından da bakarsın. Farklı insanlarla ortak bir zemin bulabilir ve gerektiğinde planını değiştirebilirsin. Senin için doğru cevap her zaman en karmaşık cevap değildir; işe yarayan yolu bulmak daha önemlidir.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nMüvekkilin anlatımından olayın arkasındaki temel problemi anlamaya çalışırsın. İnsan ilişkileri, müzakere, ikna ve pratik çözüm üretme gerektiren hukuki süreçlerde iletişim yönün öne çıkabilir. Bir hukuki stratejiyi oluştururken teorik doğruluğun yanında uygulanabilir olmasına da önem verirsin. İnsanların motivasyonlarını anlaman, hukuki yaklaşımını şekillendiren önemli bir avantajdır.",
+    traits: ["İKNA EDİCİ", "PRATİK", "İNSAN ODAKLI", "UYUMLU"]
+  },
+  {
+    id: "jimmy-mcgill",
+    name: "Jimmy McGill / Saul Goodman",
+    production: "Better call saul",
+    image: "assets/characters/jimmy-mcgill.jpeg",
+    description:
+      "Kuralların herkes için aynı yolu göstermediğini düşünür, alternatif bir çıkış bulmakta zorlanmazsın. Beklenmedik bir problemle karşılaştığında hızlıca başka bir çözüm üretmeye çalışırsın. İnsanlarla iletişim kurma ve onları ikna etme konusunda doğal bir yeteneğin vardır. Doğaçlama yapmak senin için çoğu zaman bir avantaja dönüşebilir.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nStandart bir hukuki stratejinin işe yaramadığı durumlarda alternatif yollar düşünmeye yatkınsın. Müzakere, ikna, pratik çözüm üretme ve beklenmedik gelişmelere uyum sağlama konusunda güçlü olabilirsin. Bir dosyada herkesin baktığı yere değil, farklı bir çıkış ihtimaline odaklanırsın. Ancak yaratıcı bir hukuki yaklaşım geliştirirken kısa vadeli avantajların uzun vadeli hukuki ve etik sonuçlarını da değerlendirmek önemlidir.",
+    traits: ["YARATICI", "DOĞAÇLAMACI", "İKNA EDİCİ", "PRATİK"]
+  },
+  {
+    id: "adam-schiff",
+    name: "Adam Schiff",
+    production: "Law&Order",
+    image: "assets/characters/adam-schiff.jpeg",
+    description:
+      "Kararlarını yalnızca o an yaşananlara göre değil, daha uzun vadeli sonuçları düşünerek vermeyi tercih edersin. Tecrübe, gözlem ve soğukkanlılık karar alma biçiminde önemli bir yere sahiptir. Kriz anında paniğe kapılmak yerine olayları kontrol altında tutmaya çalışırsın. İnsanların seni ciddiye almasını sağlayan şey yalnızca otoriten değil, düşünerek hareket etmendir.",
+    legalSide:
+      "⚖️ Hukuki Yönün:\nHukuki meselelerde kısa vadeli sonuçlardan çok daha geniş tabloyu görmeye çalışırsın. Stratejik planlama, kurumsal karar alma ve uzun soluklu hukuki süreçlerde kontrollü yaklaşımın öne çıkabilir. Bir dosyanın gelecekte yaratabileceği sonuçları değerlendirmek senin için önemlidir.",
+    traits: ["STRATEJİK", "TECRÜBELİ", "SOĞUKKANLI", "OTORİTER"]
+  }
+];
+var DEFAULT_CHARACTER_ID = "elle-woods";
+
+var DEFAULT_CHARACTER_ID = "elle-woods";
+
+function getCharacterById(id) {
+  return CHARACTERS.find(function (c) {
+    return c.id === id;
+  });
+}

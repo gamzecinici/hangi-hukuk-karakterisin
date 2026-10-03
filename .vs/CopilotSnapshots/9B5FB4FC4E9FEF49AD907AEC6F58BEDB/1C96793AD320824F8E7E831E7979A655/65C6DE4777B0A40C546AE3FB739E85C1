@@ -1,0 +1,536 @@
+﻿/* eslint-disable no-unused-vars */
+var QUIZ_TOTAL = 20;
+
+var QUIZ_QUESTIONS = [
+  {
+    text: "Yeni bir dava dosyası geldiğinde ilk adımın ne olur?",
+    answers: [
+      "Dosyayı baştan sona okur, notlarımı çıkarırım.",
+      "Stratejik açıdan en güçlü argümanı belirlerim.",
+      "Ekiple kısa bir toplantı yapıp görev dağıtırım.",
+      "Sezgilerime güvenip hızlıca yön çizerim."
+    ]
+  },
+  {
+    text: "Çok önemli bir duruşmadan önce hangisini yaparsın?",
+    answers: [
+      "Kendime güvenimi yükseltirim; nasıl göründüğüm ve konuştuğum da önemli.",
+      "Her şeyi tekrar tekrar kontrol ederim.",
+      "Karşı tarafın ne yapabileceğini tahmin etmeye çalışırım.",
+      "Fazla düşünmem, o an geldiğinde içgüdülerime güvenirim."
+    ]
+  },
+  {
+    text: "Bir meslektaşın senden yardım istediğinde…",
+    answers: [
+      "Zaman ayırır, birlikte çözüm ararım.",
+      "Önce kendi işlerimi bitirip sonra bakarım.",
+      "Doğrudan ne yapması gerektiğini söylerim.",
+      "Ona güvenir, kendi yolunu bulmasını beklerim."
+    ]
+  },
+  {
+    text: "Adalet kavramı senin için en çok neyi ifade eder?",
+    answers: [
+      "Kuralların ve kanunun üstünlüğünü.",
+      "Mağdurun sesinin duyulmasını.",
+      "Toplumun güven duygusunu.",
+      "Herkes için eşit ve şeffaf süreci."
+    ]
+  },
+  {
+    text: "Stresli bir günde kendini toparlamak için…",
+    answers: [
+      "Kısa bir mola ve nefes alırım.",
+      "Listemi gözden geçirip önceliklendiririm.",
+      "Güvendiğim biriyle konuşurum.",
+      "Müzik veya yürüyüşle zihnimi dağıtırım."
+    ]
+  },
+  {
+    text: "Mahkeme salonunda en çok neye dikkat edersin?",
+    answers: [
+      "Hitabet ve ikna gücüne.",
+      "Delillerin tutarlılığına.",
+      "Hakimin ve jüri/nefis tepkilerine.",
+      "Usul kurallarına harfiyen uymaya."
+    ]
+  },
+  {
+    text: "Etik bir ikilemle karşılaştığında…",
+    answers: [
+      "Meslek kurallarına göre hareket ederim.",
+      "İç sesime ve vicdanıma danışırım.",
+      "Danışmanımdan görüş alırım.",
+      "Uzun vadeli itibarımı düşünürüm."
+    ]
+  },
+  {
+    text: "Takım çalışmasında rolün genelde…",
+    answers: [
+      "Liderlik edip yön belirlemek.",
+      "Detayları kontrol eden kişi olmak.",
+      "Herkesi motive eden köprü olmak.",
+      "Arka planda analiz yapan stratejist."
+    ]
+  },
+  {
+    text: "Boş zamanında hukuk dışında ne yaparsın?",
+    answers: [
+      "Kitap veya dizi/film izlerim.",
+      "Spor veya sosyal aktivite.",
+      "Gönüllü işler veya kulüp etkinlikleri.",
+      "Yeni beceriler öğrenirim."
+    ]
+  },
+  {
+    text: "Bir müvekkil seni zor bir karar almaya iterse…",
+    answers: [
+      "Riskleri açıkça anlatırım.",
+      "Onun yanında durmaya çalışırım.",
+      "Hukuki sınırları net çizerim.",
+      "Alternatif çözümler sunarım."
+    ]
+  },
+  {
+    text: "Başarısızlık seni nasıl etkiler?",
+    answers: [
+      "Daha çok çalışmam için itici güç olur.",
+      "Kısa süre üzülür, sonra devam ederim.",
+      "Nerede hata yaptığımı analiz ederim.",
+      "Peşini bırakmam, tekrar denerim."
+    ]
+  },
+  {
+    text: "Hukuk eğitiminde en keyif aldığın alan…",
+    answers: [
+      "Ceza ve duruşma pratiği.",
+      "Medeni hukuk ve ilişkiler.",
+      "Anayasa ve insan hakları.",
+      "Ticaret ve sözleşmeler."
+    ]
+  },
+  {
+    text: "Bir tartışmada genelde…",
+    answers: [
+      "Sakin kalıp mantıklı argüman sunarım.",
+      "Karşı tarafı dinler, orta yol ararım.",
+      "Keskin ve net konuşurum.",
+      "Gerekirse geri çekilir, zamanlamayı beklerim."
+    ]
+  },
+  {
+    text: "İdeal çalışma ortamın…",
+    answers: [
+      "Prestijli, hızlı tempolu bir büro.",
+      "Düzenli ve sessiz bir kütüphane.",
+      "Samimi, küçük bir ekip.",
+      "Esnek, yaratıcı bir alan."
+    ]
+  },
+  {
+    text: "Yeni bir kanun maddesi öğrenirken…",
+    answers: [
+      "Emsal kararlarla ilişkilendiririm.",
+      "Özet çıkarıp ezberlerim.",
+      "Tartışarak pekiştiririm.",
+      "Günlük hayata nasıl yansır diye düşünürüm."
+    ]
+  },
+  {
+    text: "Jüri / hakim karşısında en büyük gücün…",
+    answers: [
+      "Hikâye anlatma becerim.",
+      "Hazırlık ve dosya bilgim.",
+      "Dürüstlük ve güven veren duruşum.",
+      "Ani gelişmelere uyum sağlamam."
+    ]
+  },
+  {
+    text: "Kariyer hedefin ağırlıklı olarak…",
+    answers: [
+      "Tanınmış bir avukat veya savcı olmak.",
+      "Adaleti sistem içinde temsil etmek.",
+      "İnsanlara doğrudan yardım etmek.",
+      "Hukuk alanında fark yaratan lider olmak."
+    ]
+  },
+  {
+    text: "Bir hata yaptığında…",
+    answers: [
+      "Hemen telafi planı yaparım.",
+      "Açıkça kabul edip özür dilerim.",
+      "Kimse fark etmeden düzeltmeye çalışırım.",
+      "Bir daha olmaması için sistem kurarım."
+    ]
+  },
+  {
+    text: "Hukuk kulübünde sen…",
+    answers: [
+      "Etkinlikleri organize ederim.",
+      "Panel ve moot court’a katılırım.",
+      "Yeni üyelere mentorluk yaparım.",
+      "Sosyal medya ve tanıtımda yer alırım."
+    ]
+  },
+  {
+    text: "Testin son sorusu: Seni en iyi tanımlayan ifade…",
+    answers: [
+      "Kazanmak için doğru stratejiyi kurarım.",
+      "Adalet her şeyden önce gelir.",
+      "İnsanlar benimle çalışmayı sever.",
+      "Kuralları bilir, sınırları zorlarım."
+    ]
+  }
+];
+
+var CHARACTERS = [
+  {
+    id: "adam-schiff",
+    name: "Adam Schiff",
+    source: "Law & Order",
+    image: "assets/characters/adam-schiff.jpeg",
+    quote: "Adalet, sabır ve hazırlıkla inşa edilir.",
+    traits: [
+      { icon: "☀", label: "Kararlı" },
+      { icon: "👥", label: "Lider" },
+      { icon: "★", label: "Disiplinli" },
+      { icon: "◎", label: "Stratejist" }
+    ],
+    description:
+      "Sakin görünümünün altında keskin bir zihin taşırsın. Kurallara saygın yüksek; uzun vadeli plan yapmayı seversin.",
+    legal:
+      "Savcılık veya kamu hukuku tarafında sistematik çalışma seni öne çıkarır. Dosyayı derinlemesine bilir, duruşmada güven verirsin."
+  },
+  {
+    id: "alexandra-cabot",
+    name: "Alexandra Cabot",
+    source: "Law & Order: SVU",
+    image: "assets/characters/alexandra-cabot.jpeg",
+    quote: "Güç, sorumlulukla birlikte gelir.",
+    traits: [
+      { icon: "☀", label: "Cesur" },
+      { icon: "★", label: "Özgüvenli" },
+      { icon: "◎", label: "Net" },
+      { icon: "👥", label: "Profesyonel" }
+    ],
+    description:
+      "Zor kararlar almaktan çekinmezsin. Etik sınırları bilir, gerektiğinde sert ama adil olursun.",
+    legal:
+      "Ceza ve mağdur hakları alanında etkili olursun. Usule hâkimiyetin ve net ifaden karşı tarafı zorlar."
+  },
+  {
+    id: "connor-walsh",
+    name: "Connor Walsh",
+    source: "How to Get Away with Murder",
+    image: "assets/characters/connor-walsh.jpeg",
+    quote: "Bazen kazanmak için risk almak gerekir.",
+    traits: [
+      { icon: "◎", label: "Hırslı" },
+      { icon: "★", label: "Zeki" },
+      { icon: "☀", label: "Cesur" },
+      { icon: "👥", label: "Rekabetçi" }
+    ],
+    description:
+      "Hızlı düşünür, baskı altında parlayan bir yapın var. Hata yaptığında telafi etmeyi bilirsin.",
+    legal:
+      "Duruşma pratiği ve ani strateji değişiklikleri senin alanın. Delil ve usul arasında ince çizgide yürürsün."
+  },
+  {
+    id: "harvey-specter",
+    name: "Harvey Specter",
+    source: "Suits",
+    image: "assets/characters/harvey-specter.jpeg",
+    quote: "Kazanmak bir seçimdir; ben her zaman seçerim.",
+    traits: [
+      { icon: "★", label: "Özgüvenli" },
+      { icon: "◎", label: "Stratejist" },
+      { icon: "☀", label: "Karizmatik" },
+      { icon: "👥", label: "Lider" }
+    ],
+    description:
+      "İlk izlenim ve ikna gücün güçlü. Rekabetten kaçınmaz, prestijli işler seni motive eder.",
+    legal:
+      "Ticaret hukuku ve müzakere masasında parlıyorsun. Hızlı karar alır, müvekkil odaklı ilerlersin."
+  },
+  {
+    id: "jack-mccoy",
+    name: "Jack McCoy",
+    source: "Law & Order",
+    image: "assets/characters/jack-mccoy.jpeg",
+    quote: "Adalet geç kalsa bile gelir.",
+    traits: [
+      { icon: "◎", label: "Azimli" },
+      { icon: "☀", label: "Deneyimli" },
+      { icon: "★", label: "İlkesel" },
+      { icon: "👥", label: "Etkileyici" }
+    ],
+    description:
+      "Yılların getirdiği ağırlığı taşırsın. Duruşmada sert olabilirsin ama amacın adalettir.",
+    legal:
+      "Kamu davalarında jüri ve hakimi ikna etme konusunda uzmansın. Emsal ve hikâyeyi birleştirirsin."
+  },
+  {
+    id: "jimmy-mcgill",
+    name: "Jimmy McGill",
+    source: "Better Call Saul",
+    image: "assets/characters/jimmy-mcgill.jpeg",
+    quote: "Kurallar bazen esnemek ister.",
+    traits: [
+      { icon: "☀", label: "Yaratıcı" },
+      { icon: "★", label: "Esnek" },
+      { icon: "👥", label: "Sosyal" },
+      { icon: "◎", label: "Girişken" }
+    ],
+    description:
+      "Resmi kalıpların dışında düşünürsün. İnsan ilişkilerinde güçlü, bazen sınırda yürürsün.",
+    legal:
+      "Küçük ofis pratiği, müvekkil ilişkisi ve yaratıcı savunma senin tarzın. Usulü bilir, farklı yollar dener."
+  },
+  {
+    id: "judge-elizabeth-donnelly",
+    name: "Judge Elizabeth Donnelly",
+    source: "Law & Order",
+    image: "assets/characters/judge-elizabeth-donnelly.jpeg",
+    quote: "Salonda düzen, adaletin ön şartıdır.",
+    traits: [
+      { icon: "◎", label: "Adil" },
+      { icon: "★", label: "Otoriter" },
+      { icon: "☀", label: "Deneyimli" },
+      { icon: "👥", label: "Saygın" }
+    ],
+    description:
+      "Tarafsızlık ve usul disiplini senin için vazgeçilmez. Duygusal tepkiler yerine kural koyarsın.",
+    legal:
+      "Yargı veya hakimlik yolunda sistem bilgisi güçlü olur. Duruşmayı yönetme ve eşit muamele senin imzan."
+  },
+  {
+    id: "juror-8",
+    name: "Jüri Üyesi #8",
+    source: "12 Angry Men",
+    image: "assets/characters/juror-8.jpeg",
+    quote: "Şüphe, mahkûmiyetten ağır basmalıdır.",
+    traits: [
+      { icon: "☀", label: "Sabırlı" },
+      { icon: "◎", label: "Vicdanlı" },
+      { icon: "★", label: "Cesur" },
+      { icon: "👥", label: "İkna Edici" }
+    ],
+    description:
+      "Kalabalığa karşı durabilirsin. Detaylara iner, herkesin sesini duymaya çalışırsın.",
+    legal:
+      "Ceza jürisi ve delil değerlendirmede güçlüsün. Mantık zinciri kurarak adil sonuca ulaşırsın."
+  },
+  {
+    id: "kim-wexler",
+    name: "Kim Wexler",
+    source: "Better Call Saul",
+    image: "assets/characters/kim-wexler.jpeg",
+    quote: "Önyargılar seni durdurmak yerine daha da motive eder.",
+    traits: [
+      { icon: "☀", label: "Pozitif" },
+      { icon: "👥", label: "Sosyal" },
+      { icon: "★", label: "Özgüvenli" },
+      { icon: "◎", label: "Kararlı" }
+    ],
+    description:
+      "Çalışkanlığın ve etik duruşun seni farklı kılar. Zorlu ortamlarda bile profesyonel kalırsın.",
+    legal:
+      "Ofis disiplini, müvekkil güveni ve uzun soluklu dava yönetimi senin güçlü yanların. Adalet arayışın net."
+  },
+  {
+    id: "laurel-castillo",
+    name: "Laurel Castillo",
+    source: "How to Get Away with Murder",
+    image: "assets/characters/laurel-castillo.jpeg",
+    quote: "Doğru olanı yapmak bazen yalnız hissettirir.",
+    traits: [
+      { icon: "☀", label: "Empatik" },
+      { icon: "◎", label: "Analitik" },
+      { icon: "★", label: "Cesur" },
+      { icon: "👥", label: "Sadık" }
+    ],
+    description:
+      "İnsani yönün güçlü; karmaşık durumlarda vicdanın rehberlik eder. Araştırmayı seversin.",
+    legal:
+      "Ceza ve insan hakları odaklı dosyalarda derinlemesine çalışırsın. Delil zincirini titiz kurarsın."
+  },
+  {
+    id: "louis-litt",
+    name: "Louis Litt",
+    source: "Suits",
+    image: "assets/characters/louis-litt.jpeg",
+    quote: "Mükemmellik tesadüf değildir.",
+    traits: [
+      { icon: "★", label: "Titiz" },
+      { icon: "◎", label: "Hırslı" },
+      { icon: "☀", label: "Enerjik" },
+      { icon: "👥", label: "Rekabetçi" }
+    ],
+    description:
+      "Detaylara takıntın var; onaylanmak seni motive eder. Duygusal olsan da işini ciddiye alırsın.",
+    legal:
+      "Sözleşme inceleme ve kurumsal hukuk senin alanın. Kuralları bilir, rakiplerini yakından izlersin."
+  },
+  {
+    id: "maggie-mcpherson",
+    name: "Maggie McPherson",
+    source: "Your Honor",
+    image: "assets/characters/maggie-mcpherson.jpeg",
+    quote: "Gerçek, eninde sonunda gün yüzüne çıkar.",
+    traits: [
+      { icon: "◎", label: "Azimli" },
+      { icon: "☀", label: "Adalet Odaklı" },
+      { icon: "★", label: "Cesur" },
+      { icon: "👥", label: "Kararlı" }
+    ],
+    description:
+      "Zor gerçeklerle yüzleşmekten kaçınmazsın. Aile ve meslek arasında denge kurmaya çalışırsın.",
+    legal:
+      "Ceza soruşturması ve etik ikilemlerde güçlü durursun. Kanıt peşinde ısrarcısın."
+  },
+  {
+    id: "mickey-haller",
+    name: "Mickey Haller",
+    source: "The Lincoln Lawyer",
+    image: "assets/characters/mickey-haller.jpeg",
+    quote: "Her müvekkilin bir hikâyesi vardır.",
+    traits: [
+      { icon: "☀", label: "Pratik" },
+      { icon: "★", label: "Özgüvenli" },
+      { icon: "◎", label: "Esnek" },
+      { icon: "👥", label: "Bağımsız" }
+    ],
+    description:
+      "Sahada çalışmayı, sahici ilişkileri seversin. Ofis protokolünden çok sonuç odaklısın.",
+    legal:
+      "Savunma avukatlığı ve müvekkil savunması senin doğal alanın. Arabada bile strateji kurarsın."
+  },
+  {
+    id: "mike-ross",
+    name: "Mike Ross",
+    source: "Suits",
+    image: "assets/characters/mike-ross.jpeg",
+    quote: "Ezberlemek yetmez; anlamak gerekir.",
+    traits: [
+      { icon: "★", label: "Zeki" },
+      { icon: "☀", label: "Empatik" },
+      { icon: "◎", label: "Hızlı" },
+      { icon: "👥", label: "Uyumlu" }
+    ],
+    description:
+      "Öğrenme hızın yüksek; insan odaklı düşünürsün. Kurallar bazen seni zorlasın da vicdanın rehber olur.",
+    legal:
+      "Araştırma ve delil bulmada üstünsün. Karmaşık metinleri hızla kavrar, pratik çözüm üretirsin."
+  },
+  {
+    id: "serena-southerlyn",
+    name: "Serena Southerlyn",
+    source: "Law & Order",
+    image: "assets/characters/serena-southerlyn.jpeg",
+    quote: "Hukuk, insana hizmet etmelidir.",
+    traits: [
+      { icon: "☀", label: "İdealist" },
+      { icon: "👥", label: "Empatik" },
+      { icon: "★", label: "Dürüst" },
+      { icon: "◎", label: "Ilkeli" }
+    ],
+    description:
+      "Adalet arayışın idealist; toplumsal konulara duyarlısın. Etik tartışmalarda net taraf alırsın.",
+    legal:
+      "Kamu savcılığı ve reform odaklı düşünce seni tanımlar. Usul ve insan hakkını birlikte götürürsün."
+  },
+  {
+    id: "wes-gibbins",
+    name: "Wes Gibbins",
+    source: "How to Get Away with Murder",
+    image: "assets/characters/wes-gibbins.jpeg",
+    quote: "Sessizlik bazen en yüksek sesi çıkarır.",
+    traits: [
+      { icon: "◎", label: "Gözlemci" },
+      { icon: "★", label: "Sezgisel" },
+      { icon: "☀", label: "Sabırlı" },
+      { icon: "👥", label: "Sadık" }
+    ],
+    description:
+      "Sakin ve düşünceli bir yapın var. Detayları fark eder, baskı altında içgüdülerine güvenirsin.",
+    legal:
+      "Strateji ve delil analizinde derinleşirsin. Duygusal mesafeni koruyarak doğru hamleyi bulursun."
+  },
+  {
+    id: "annalise-keating",
+    name: "Annalise Keating",
+    source: "How to Get Away with Murder",
+    image: "assets/characters/annalise-keating.jpeg",
+    quote: "Zafer, hazırlık ve cesaretle gelir.",
+    traits: [
+      { icon: "★", label: "Güçlü" },
+      { icon: "◎", label: "Stratejist" },
+      { icon: "☀", label: "Etkileyici" },
+      { icon: "👥", label: "Lider" }
+    ],
+    description:
+      "Otoriter ve karizmatik bir duruşun var. Duygusal derinliğini nadiren gösterir, işinde keskin sınırlar koyarsın.",
+    legal:
+      "Ceza savunması ve duruşma performansında üst düzeydesin. Öğrencilerini ve ekibini yüksek standarda taşırsın."
+  },
+  {
+    id: "elle-woods",
+    name: "Elle Woods",
+    source: "Legally Blonde",
+    image: "assets/characters/elle-woods.jpeg",
+    quote: "Önyargılar seni durdurmak yerine daha da motive eder.",
+    traits: [
+      { icon: "☀", label: "Pozitif" },
+      { icon: "👥", label: "Sosyal" },
+      { icon: "★", label: "Özgüvenli" },
+      { icon: "◎", label: "Kararlı" }
+    ],
+    description:
+      "Enerjin ve özgüvenin çevrene yayılır. İnsanlar seni hafife alsa da azmin ve zekân seni hedefe taşır.",
+    legal:
+      "Usul ve delil detaylarında beklenmedik güçlü yanların vardır. Empati kurarak jüri ve hakimi etkilersin."
+  },
+  {
+    id: "jessica-pearson",
+    name: "Jessica Pearson",
+    source: "Suits",
+    image: "assets/characters/jessica-pearson.jpeg",
+    quote: "İtibar, en değerli sermayedir.",
+    traits: [
+      { icon: "★", label: "Zarif" },
+      { icon: "◎", label: "Stratejist" },
+      { icon: "☀", label: "Otoriter" },
+      { icon: "👥", label: "Lider" }
+    ],
+    description:
+      "Soğukkanlı ve hesaplı hareket edersin. Prestij ve kontrol senin için vazgeçilmezdir.",
+    legal:
+      "Kurumsal yönetim ve üst düzey müzakere senin alanın. Ofis politikasını ustalıkla yönetirsin."
+  },
+  {
+    id: "rachel-zane",
+    name: "Rachel Zane",
+    source: "Suits",
+    image: "assets/characters/rachel-zane.jpeg",
+    quote: "Her kapı kapalı değildir; bazen farklı anahtar gerekir.",
+    traits: [
+      { icon: "☀", label: "Azimli" },
+      { icon: "★", label: "Empatik" },
+      { icon: "👥", label: "Çalışkan" },
+      { icon: "◎", label: "Uyumlu" }
+    ],
+    description:
+      "Kariyer basamaklarını emekle tırmanırsın. Hata yapsan da öğrenmeye ve gelişmeye açıksın.",
+    legal:
+      "Araştırma, dosya hazırlığı ve müvekkil ilişkilerinde güvenilir bir profilsin. Etik sınırlara önem verirsin."
+  }
+];
+
+var DEFAULT_CHARACTER_ID = "elle-woods";
+
+function getCharacterById(id) {
+  return CHARACTERS.find(function (c) {
+    return c.id === id;
+  });
+}

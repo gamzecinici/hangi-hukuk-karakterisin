@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hangi hukuk karakterisin? Medipol Uluslararası Hukuk Kulübü kişilik testi.">
+  <title>Hangi Hukuk Karakterisin? | Ana Sayfa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="page-home">
+  <div class="page-shell">
+    <header class="site-header">
+      <a href="index.html" class="brand">
+        <img src="assets/logo/logo.png" alt="Medipol Uluslararası Hukuk Kulübü logosu" class="brand-logo" width="48" height="48">
+        <span class="brand-text">
+          <span>MEDİPOL</span>
+          <span>ULUSLARARASI</span>
+          <span>HUKUK KULÜBÜ</span>
+        </span>
+      </a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menüyü aç">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <nav id="site-nav" class="site-nav" aria-label="Ana menü" hidden>
+      <a href="index.html" aria-current="page">Ana Sayfa</a>
+      <a href="quiz.html">Teste Başla</a>
+      <a href="about.html">KARAKTERİNİ KEŞFET</a>
+    </nav>
+
+    <!-- ornament divider removed on homepage to place logo inside hero under the main title -->
+
+    <main class="home-main">
+      <section class="home-hero" aria-labelledby="home-title">
+        <h1 id="home-title" class="home-title serif-title">
+          <span>HANGİ</span>
+          <span>HUKUK</span>
+          <span>KARAKTERİSİN?</span>
+        </h1>
+
+        <div class="ornament-divider" aria-hidden="true">
+          <span class="ornament-gem"></span>
+        </div>
+
+        <p class="home-subtitle">
+          Karakterini keşfet. Stratejini belirle.<br>
+          Hangi hukuk dünyasına ait olduğunu öğren.
+        </p>
+
+        <a href="quiz.html" class="btn btn-primary home-cta">
+          Teste Başla <span class="btn-arrow" aria-hidden="true">&rsaquo;</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="home-footer">
+      <div class="ornament-divider" aria-hidden="true">
+        <span class="ornament-gem"></span>
+      </div>
+      <p class="home-meta">20 SORU &bull; 20 KARAKTER &bull; DİZİ VE FİLMLERDEN İLHAMLA</p>
+      <div class="home-scroll-hint" aria-hidden="true">&darr;</div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
