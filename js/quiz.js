@@ -7,6 +7,34 @@
   var currentIndex = 0;
   var userAnswers = {};
 
+  // If this page was reached via a browser reload, force user back to the homepage.
+  // This prevents maintaining or restoring quiz state on refresh.
+  // Require an explicit 'quizStarted' session token produced by the homepage
+  // "Teste Başla" link or by the result page's "Testi Tekrarla" action.
+  // This token is consumed immediately so a later refresh won't have it.
+  try {
+    var started = sessionStorage.getItem('quizStarted');
+    if (started) {
+      try { sessionStorage.removeItem('quizStarted'); } catch (e) {}
+      // allow quiz to initialize normally
+    } else {
+      // No explicit start token -> clear any lingering state and send user to homepage
+      try {
+        sessionStorage.removeItem("quizAnswers");
+        sessionStorage.removeItem("quizResult");
+        sessionStorage.removeItem("quizIndex");
+      } catch (e) {}
+      window.location.href = "index.html";
+      return;
+    }
+  } catch (e) {
+    // if storage APIs fail, bail to homepage
+    try {
+      window.location.href = "index.html";
+    } catch (e) {}
+    return;
+  }
+
   var counterEl = document.getElementById("quiz-counter");
   var progressFill = document.getElementById("quiz-progress-fill");
   var progressBar = document.getElementById("quiz-progressbar");
@@ -20,22 +48,27 @@
   }
 
   function loadState() {
+    // Ensure quiz always starts fresh: clear any persisted state
     try {
-      var raw = localStorage.getItem("quizAnswers");
-      userAnswers = raw ? JSON.parse(raw) : {};
+      // clear session storage keys (we use sessionStorage for ephemeral state)
+      sessionStorage.removeItem("quizAnswers");
+      sessionStorage.removeItem("quizResult");
+      sessionStorage.removeItem("quizIndex");
+      // also remove any legacy localStorage answers/index so old data doesn't appear
+      try {
+        localStorage.removeItem("quizAnswers");
+        localStorage.removeItem("quizIndex");
+      } catch (e) {}
     } catch (e) {
-      userAnswers = {};
+      // ignore
     }
-    var idxRaw = localStorage.getItem("quizIndex");
-    var idx = idxRaw ? parseInt(idxRaw, 10) : 0;
-    if (isNaN(idx) || idx < 0) idx = 0;
-    if (idx >= total) idx = total - 1;
-    currentIndex = idx;
+    userAnswers = {};
+    currentIndex = 0;
   }
 
   function saveAnswers() {
-    localStorage.setItem("quizAnswers", JSON.stringify(userAnswers));
-    localStorage.setItem("quizIndex", String(currentIndex));
+    // Do not persist answers across reloads; avoid saving to localStorage
+    // Kept intentionally empty to prevent restoring state
   }
 
   function updateProgress() {
@@ -211,7 +244,13 @@
       scores: scores
     };
 
-    localStorage.setItem("quizResult", JSON.stringify(quizResult));
+    // Store result only in session storage (ephemeral) to avoid persistent state
+    try {
+      sessionStorage.setItem("quizResult", JSON.stringify(quizResult));
+    } catch (e) {
+      // fallback to localStorage if sessionStorage unavailable
+      try { localStorage.setItem("quizResult", JSON.stringify(quizResult)); } catch (e) {}
+    }
     window.location.href = "result.html";
   });
 

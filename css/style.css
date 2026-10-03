@@ -198,15 +198,42 @@ body.has-pattern {
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  padding: 2rem;
+  padding: clamp(1rem, 6vw, 2rem);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--transition), visibility var(--transition);
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .site-nav.is-open {
   opacity: 1;
   visibility: visible;
+}
+
+/* Close (X) button inside the overlay navigation */
+.menu-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: var(--ivory);
+  background: transparent;
+  border-radius: 8px;
+  z-index: 110;
+  cursor: pointer;
+}
+
+.menu-close:focus {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
 }
 
 .site-nav a {
@@ -432,5 +459,24 @@ body.has-pattern {
   .menu-toggle {
     position: relative;
     z-index: 5;
+  }
+  /* Mobile adjustments for the overlay menu */
+  .site-nav {
+    padding: 1rem;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    min-height: 100dvh;
+  }
+  .site-nav a {
+    font-size: 1.15rem;
+    padding: 0.5rem 0.5rem;
+  }
+  .menu-close {
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
   }
 }

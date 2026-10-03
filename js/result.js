@@ -5,12 +5,29 @@
 
   var stored = null;
   try {
-    stored = JSON.parse(localStorage.getItem("quizResult"));
+    var raw = null;
+    try { raw = sessionStorage.getItem("quizResult"); } catch (e) { raw = null; }
+    if (!raw) {
+      try { raw = localStorage.getItem("quizResult"); } catch (e) { raw = null; }
+    }
+    stored = raw ? JSON.parse(raw) : null;
   } catch (e) {
     stored = null;
   }
+  // If there is no quizResult, redirect back to the homepage — results should not be viewed directly
+  if (!stored || !stored.primary) {
+    try {
+      localStorage.removeItem("quizIndex");
+      localStorage.removeItem("quizAnswers");
+      localStorage.removeItem("quizResult");
+    } catch (e) {
+      // ignore
+    }
+    window.location.href = "index.html";
+    return;
+  }
 
-  var id = (stored && stored.primary) || DEFAULT_CHARACTER_ID;
+  var id = stored.primary;
   var character = getCharacterById(id);
 
   if (!character) {
@@ -57,9 +74,18 @@
   var retry = document.getElementById("result-retry");
   if (retry) {
     retry.addEventListener("click", function () {
-      localStorage.removeItem("quizIndex");
-      localStorage.removeItem("quizAnswers");
-      localStorage.removeItem("quizResult");
+      try {
+        // clear both session and local storage quiz keys
+        sessionStorage.removeItem('quizStarted');
+        sessionStorage.removeItem('quizAnswers');
+        sessionStorage.removeItem('quizIndex');
+        sessionStorage.removeItem('quizResult');
+        localStorage.removeItem('quizAnswers');
+        localStorage.removeItem('quizIndex');
+        localStorage.removeItem('quizResult');
+      } catch (e) {}
+      // Set the session token so quiz.html knows this is a fresh start
+      try { sessionStorage.setItem('quizStarted', '1'); } catch (e) {}
       window.location.href = "quiz.html";
     });
   }

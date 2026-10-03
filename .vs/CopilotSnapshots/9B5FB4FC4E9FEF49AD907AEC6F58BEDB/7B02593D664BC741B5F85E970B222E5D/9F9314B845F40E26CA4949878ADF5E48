@@ -1,0 +1,251 @@
+﻿(function () {
+  "use strict";
+
+  if (typeof questions === "undefined") return;
+
+  var total = questions.length;
+  var currentIndex = 0;
+  var userAnswers = {};
+
+  // If this page was reached via a browser reload, force user back to the homepage.
+  // This prevents maintaining or restoring quiz state on refresh.
+  try {
+    var navType = null;
+    if (window.performance && performance.getEntriesByType) {
+      var entries = performance.getEntriesByType("navigation");
+      if (entries && entries.length) navType = entries[0].type;
+    }
+    if (!navType && window.performance && performance.navigation) {
+      // legacy API
+      navType = performance.navigation.type === performance.navigation.TYPE_RELOAD ? "reload" : "navigate";
+    }
+    if (navType === "reload") {
+      // clear any lingering keys and redirect to index
+      try {
+        sessionStorage.removeItem("quizAnswers");
+        sessionStorage.removeItem("quizResult");
+        sessionStorage.removeItem("quizIndex");
+      } catch (e) {}
+      window.location.href = "index.html";
+      return;
+    }
+  } catch (e) {
+    // ignore detection errors and continue
+  }
+
+  var counterEl = document.getElementById("quiz-counter");
+  var progressFill = document.getElementById("quiz-progress-fill");
+  var progressBar = document.getElementById("quiz-progressbar");
+  var questionEl = document.getElementById("quiz-question");
+  var answersEl = document.getElementById("quiz-answers");
+  var prevBtn = document.getElementById("quiz-prev");
+  var nextBtn = document.getElementById("quiz-next");
+
+  function pad(n) {
+    return n < 10 ? "0" + n : String(n);
+  }
+
+  function loadState() {
+    // Ensure quiz always starts fresh: clear any persisted state
+    try {
+      // clear session storage keys (we use sessionStorage for ephemeral state)
+      sessionStorage.removeItem("quizAnswers");
+      sessionStorage.removeItem("quizResult");
+      sessionStorage.removeItem("quizIndex");
+      // also remove any legacy localStorage answers/index so old data doesn't appear
+      try {
+        localStorage.removeItem("quizAnswers");
+        localStorage.removeItem("quizIndex");
+      } catch (e) {}
+    } catch (e) {
+      // ignore
+    }
+    userAnswers = {};
+    currentIndex = 0;
+  }
+
+  function saveAnswers() {
+    // Do not persist answers across reloads; avoid saving to localStorage
+    // Kept intentionally empty to prevent restoring state
+  }
+
+  function updateProgress() {
+    var num = currentIndex + 1;
+    counterEl.textContent = pad(num) + " / " + pad(total);
+    var pct = (num / total) * 100;
+    progressFill.style.width = pct + "%";
+    progressBar.setAttribute("aria-valuenow", String(num));
+    progressBar.setAttribute("aria-valuemax", String(total));
+  }
+
+  function renderQuestion() {
+    var q = questions[currentIndex];
+    if (!q) return;
+
+    questionEl.textContent = q.text;
+    answersEl.innerHTML = "";
+
+    q.options.forEach(function (opt) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "answer-card";
+      btn.setAttribute("role", "option");
+      btn.setAttribute("data-option", opt.id);
+      btn.setAttribute("aria-selected", "false");
+
+      if (userAnswers[q.id] === opt.id) {
+        btn.classList.add("is-selected");
+        btn.setAttribute("aria-selected", "true");
+      }
+
+      btn.innerHTML =
+        '<span class="answer-letter-wrap"><span class="answer-letter">' +
+        opt.id +
+        "</span></span>" +
+        '<span class="answer-text">' +
+        opt.text +
+        "</span>";
+
+      btn.addEventListener("click", function () {
+        selectAnswer(q.id, opt.id);
+      });
+
+      answersEl.appendChild(btn);
+    });
+
+    prevBtn.disabled = currentIndex === 0;
+    var has = Boolean(userAnswers[questions[currentIndex].id]);
+    nextBtn.disabled = !has;
+    nextBtn.textContent = currentIndex === total - 1 ? "Bitir" : "İleri";
+
+    updateProgress();
+  }
+
+  function selectAnswer(questionId, optionId) {
+    userAnswers[questionId] = optionId;
+    saveAnswers();
+
+    answersEl.querySelectorAll(".answer-card").forEach(function (card) {
+      var isSelected = card.getAttribute("data-option") === optionId;
+      card.classList.toggle("is-selected", isSelected);
+      card.setAttribute("aria-selected", isSelected ? "true" : "false");
+    });
+
+    nextBtn.disabled = false;
+  }
+
+  prevBtn.addEventListener("click", function () {
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      saveAnswers();
+      renderQuestion();
+      questionEl.focus();
+    }
+  });
+
+  nextBtn.addEventListener("click", function () {
+    var qid = questions[currentIndex].id;
+    if (!userAnswers[qid]) return;
+
+    if (currentIndex < total - 1) {
+      currentIndex += 1;
+      saveAnswers();
+      renderQuestion();
+      questionEl.focus();
+      return;
+    }
+
+    // Compute final scores
+    var scores = {};
+    if (typeof CHARACTERS !== "undefined" && Array.isArray(CHARACTERS)) {
+      CHARACTERS.forEach(function (c) {
+        scores[c.id] = 0;
+      });
+    }
+
+    questions.forEach(function (q) {
+      var choice = userAnswers[q.id];
+      if (!choice) return;
+      var opt = q.options.find(function (o) {
+        return o.id === choice;
+      });
+      if (!opt || !opt.scores) return;
+      Object.keys(opt.scores).forEach(function (cid) {
+        if (typeof scores[cid] === "undefined") scores[cid] = 0;
+        scores[cid] += opt.scores[cid];
+      });
+    });
+
+    var critical = [15, 16, 19, 20];
+    var criticalScores = {};
+    Object.keys(scores).forEach(function (cid) {
+      criticalScores[cid] = 0;
+    });
+    questions.forEach(function (q) {
+      if (critical.indexOf(q.id) === -1) return;
+      var choice = userAnswers[q.id];
+      if (!choice) return;
+      var opt = q.options.find(function (o) {
+        return o.id === choice;
+      });
+      if (!opt || !opt.scores) return;
+      Object.keys(opt.scores).forEach(function (cid) {
+        if (typeof criticalScores[cid] === "undefined") criticalScores[cid] = 0;
+        criticalScores[cid] += opt.scores[cid];
+      });
+    });
+
+    var characterPriority = [
+      "jessica-pearson",
+      "harvey-specter",
+      "mike-ross",
+      "kim-wexler",
+      "annalise-keating",
+      "rachel-zane",
+      "elle-woods",
+      "louis-litt",
+      "laurel-castillo",
+      "mickey-haller",
+      "judge-elizabeth-donnelly",
+      "wes-gibbins",
+      "connor-walsh",
+      "maggie-mcpherson",
+      "serena-southerlyn",
+      "jimmy-mcgill",
+      "jack-mccoy",
+      "alexandra-cabot",
+      "adam-schiff",
+      "juror-8"
+    ];
+
+    function rankComparator(a, b) {
+      var ta = scores[a] || 0;
+      var tb = scores[b] || 0;
+      if (ta !== tb) return tb - ta;
+      var ca = criticalScores[a] || 0;
+      var cb = criticalScores[b] || 0;
+      if (ca !== cb) return cb - ca;
+      var pa = characterPriority.indexOf(a);
+      var pb = characterPriority.indexOf(b);
+      if (pa === -1) pa = characterPriority.length;
+      if (pb === -1) pb = characterPriority.length;
+      return pa - pb;
+    }
+
+    var allChars = Object.keys(scores);
+    allChars.sort(rankComparator);
+
+    var quizResult = {
+      primary: allChars[0] || null,
+      secondary: allChars[1] || null,
+      tertiary: allChars[2] || null,
+      scores: scores
+    };
+
+    localStorage.setItem("quizResult", JSON.stringify(quizResult));
+    window.location.href = "result.html";
+  });
+
+  loadState();
+  renderQuestion();
+})();

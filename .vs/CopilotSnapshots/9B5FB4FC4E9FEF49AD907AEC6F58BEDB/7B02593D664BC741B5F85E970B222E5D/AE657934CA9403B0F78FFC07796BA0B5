@@ -1,0 +1,78 @@
+﻿(function () {
+  "use strict";
+
+  if (typeof CHARACTERS === "undefined") return;
+
+  var stored = null;
+  try {
+    stored = JSON.parse(localStorage.getItem("quizResult"));
+  } catch (e) {
+    stored = null;
+  }
+  // If there is no quizResult, redirect back to the homepage — results should not be viewed directly
+  if (!stored || !stored.primary) {
+    try {
+      localStorage.removeItem("quizIndex");
+      localStorage.removeItem("quizAnswers");
+      localStorage.removeItem("quizResult");
+    } catch (e) {
+      // ignore
+    }
+    window.location.href = "index.html";
+    return;
+  }
+
+  var id = stored.primary;
+  var character = getCharacterById(id);
+
+  if (!character) {
+    character = getCharacterById(DEFAULT_CHARACTER_ID);
+    if (character) {
+      console.warn("Karakter bulunamadı: " + id + ". Varsayılan kullanılıyor.");
+    }
+  }
+
+  if (!character) return;
+
+  var nameEl = document.getElementById("result-name");
+  var sourceEl = document.getElementById("result-source");
+  var photoEl = document.getElementById("result-photo");
+  var quoteEl = document.getElementById("result-quote");
+  var traitsEl = document.getElementById("result-traits");
+  var descEl = document.getElementById("result-description");
+  var legalEl = document.getElementById("result-legal");
+
+  nameEl.textContent = character.name;
+  sourceEl.textContent = character.production || character.source || "";
+  photoEl.src = character.image;
+  photoEl.alt = character.name + " karakter görseli";
+  quoteEl.textContent = character.quote ? "\u201C" + character.quote + "\u201D" : "";
+  descEl.textContent = character.description || "";
+  // legalSide may contain a leading label like "⚖️ Hukuki Yönün:". Remove that
+  // duplicate label here so the HTML heading remains the only title.
+  if (character.legalSide) {
+    var legalText = character.legalSide.replace(/^\s*(?:⚖️|⚖)?\s*Hukuki Yönün:\s*/i, "");
+    legalEl.innerHTML = legalText.replace(/\n/g, "<br>");
+  } else {
+    legalEl.textContent = character.legal || "";
+  }
+
+  traitsEl.innerHTML = "";
+  (character.traits || []).forEach(function (trait) {
+    var li = document.createElement("li");
+    li.className = "result-trait";
+    // keep visual structure: empty icon span + label span (do not change trait text)
+    li.innerHTML = '<span class="trait-icon" aria-hidden="true"></span><span>' + trait + "</span>";
+    traitsEl.appendChild(li);
+  });
+
+  var retry = document.getElementById("result-retry");
+  if (retry) {
+    retry.addEventListener("click", function () {
+      localStorage.removeItem("quizIndex");
+      localStorage.removeItem("quizAnswers");
+      localStorage.removeItem("quizResult");
+      window.location.href = "quiz.html";
+    });
+  }
+})();
